@@ -5,6 +5,7 @@ import Product, { products } from '../components/Product'
 import Service from '../components/Service'
 import About from '../components/About'
 import ProdDets from '../components/ProdDets'
+import SerDets from '../components/SerDets'
 
 function Mainroutes() {
     return (
@@ -13,7 +14,9 @@ function Mainroutes() {
                 <Route path="/" element={<Home />} />
                 <Route path="/product" element={<Product />} />
                 <Route path="/product/:id" element={<ProdDets products={products} />} />
-                <Route path="/service" element={<Service />} />
+                <Route path="/service" element={<Service />} >
+                    <Route path="/service/details" element={<SerDets />} />
+                </Route>
                 <Route path="/about" element={<About />} />
             </Routes>
         </main>

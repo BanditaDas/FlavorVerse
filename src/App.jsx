@@ -1,6 +1,6 @@
 import React from 'react'
-import Mainroutes from './routes/Mainroutes'
-import Nav from './components/Nav'
+import Mainroutes from './Routes/Mainroutes'
+import Nav from "./components/Nav";
 
 function App() {
   return (

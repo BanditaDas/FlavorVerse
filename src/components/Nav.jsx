@@ -15,9 +15,15 @@ function Nav() {
 
       {/* Navigation Links */}
       <div className="flex items-center gap-8 text-lg">
-        <Button bname="Home" />
-        <Button bname="About" />
-        <Button bname="Recipe" />
+        <NavLink to="/">
+          <Button bname="Home" />
+        </NavLink>
+        <NavLink to="/about">
+          <Button bname="About" />
+        </NavLink>
+        <NavLink to="/recipe">
+          <Button bname="Recipe" />
+        </NavLink>
       </div>
     </nav>
   )

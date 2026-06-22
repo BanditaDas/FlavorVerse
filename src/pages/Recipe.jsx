@@ -3,8 +3,16 @@ import Recipecard from '../components/Recipecard';
 
 function Recipe() {
   const recipe = {
-    name: 'Spaghetti Carbonara',
-    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    name: "Blueberry Smoothie",
+    imageUrl:
+      "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=800",
+    price: 10,
+    deliveryDate: "16/06/2026",
+    description:
+      "A refreshing blueberry smoothie packed with antioxidants and natural sweetness.",
+    ingredients: ["Blueberry", "Banana"],
+    calories: 250,
+    time: 10,
   };
 
   return (

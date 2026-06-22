@@ -1,146 +1,73 @@
 import React from "react";
-import styled from "styled-components";
+import { FaLeaf, FaClock, FaFire, FaUtensils } from "react-icons/fa";
 
 function Recipecard({ recipe }) {
   return (
-    <StyledWrapper>
-      <div className="card">
-        <div className="bg">
-          <img
-            src={recipe.image}
-            alt={recipe.name}
-            className="recipe-img"
-          />
+    <div className="w-70 bg-white rounded-3xl p-3 shadow-lg border border-gray-100 hover:scale-105 transition-all duration-300">
+      
+      {/* Image */}
+      <div className="relative">
+        <img
+          src={recipe.imageUrl}
+          alt={recipe.name}
+          className="w-full h-56 object-cover rounded-2xl"
+        />
 
-          <div className="content">
-            <h3>{recipe.name}</h3>
+        {/* Price */}
+        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-xl font-semibold text-purple-700 shadow">
+          ₹{recipe.price}
+        </div>
+      </div>
 
-            <p>
-              {recipe.description?.slice(0, 60) || "Delicious homemade recipe"}
-              ...
-            </p>
+      {/* Delivery Banner */}
+      <div className="mt-3 bg-purple-600 text-white text-xs py-2 px-3 rounded-xl flex items-center gap-2">
+        🚚 Free Delivery Until {recipe.deliveryDate}
+      </div>
 
-            <button>View Details</button>
-          </div>
+      {/* Recipe Name */}
+      <div className="mt-4 flex items-center justify-between">
+        <h2 className="text-xl font-bold text-gray-800">
+          {recipe.name}
+        </h2>
+
+        <button className="text-purple-600 font-semibold text-sm hover:text-purple-800">
+          View →
+        </button>
+      </div>
+
+      {/* Description */}
+      <p className="text-gray-500 text-sm mt-2 line-clamp-2">
+        {recipe.description}
+      </p>
+
+      {/* Tags */}
+      <div className="grid grid-cols-4 gap-2 mt-5">
+        <div className="flex flex-col items-center bg-gray-100 rounded-xl p-2">
+          <FaLeaf className="text-purple-600" />
+          <span className="text-[11px] mt-1">{recipe.ingredients?.[0]}</span>
         </div>
 
-        <div className="blob" />
+        <div className="flex flex-col items-center bg-gray-100 rounded-xl p-2">
+          <FaUtensils className="text-purple-600" />
+          <span className="text-[11px] mt-1">{recipe.ingredients?.[1]}</span>
+        </div>
+
+        <div className="flex flex-col items-center bg-gray-100 rounded-xl p-2">
+          <FaFire className="text-purple-600" />
+          <span className="text-[11px] mt-1">
+            {recipe.calories} Cal
+          </span>
+        </div>
+
+        <div className="flex flex-col items-center bg-gray-100 rounded-xl p-2">
+          <FaClock className="text-purple-600" />
+          <span className="text-[11px] mt-1">
+            {recipe.time} min
+          </span>
+        </div>
       </div>
-    </StyledWrapper>
+    </div>
   );
 }
-
-const StyledWrapper = styled.div`
-  .card {
-    position: relative;
-    width: 280px;
-    height: 370px;
-    border-radius: 14px;
-    z-index: 1111;
-    overflow: hidden;
-    box-shadow:
-      20px 20px 60px #bebebe,
-      -20px -20px 60px #ffffff;
-  }
-
-  .bg {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    width: calc(100% - 10px);
-    height: calc(100% - 10px);
-    z-index: 2;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(24px);
-    border-radius: 10px;
-    overflow: hidden;
-    outline: 2px solid white;
-
-    display: flex;
-    flex-direction: column;
-  }
-
-  .recipe-img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-  }
-
-  .content {
-    flex: 1;
-    padding: 1rem;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .content h3 {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #222;
-    margin-bottom: 0.5rem;
-  }
-
-  .content p {
-    font-size: 0.9rem;
-    color: #666;
-    line-height: 1.5;
-    margin-bottom: 1rem;
-  }
-
-  .content button {
-    width: 100%;
-    border: none;
-    padding: 0.8rem;
-    border-radius: 10px;
-    background: #b35839;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .content button:hover {
-    transform: translateY(-2px);
-    background: #99492f;
-  }
-
-  .blob {
-    position: absolute;
-    z-index: 1;
-    top: 50%;
-    left: 50%;
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    background-color: #b35839;
-    opacity: 1;
-    filter: blur(20px);
-    animation: blob-bounce 5s infinite ease;
-  }
-
-  @keyframes blob-bounce {
-    0% {
-      transform: translate(-100%, -100%) translate3d(0, 0, 0);
-    }
-
-    25% {
-      transform: translate(-100%, -100%) translate3d(100%, 0, 0);
-    }
-
-    50% {
-      transform: translate(-100%, -100%) translate3d(100%, 100%, 0);
-    }
-
-    75% {
-      transform: translate(-100%, -100%) translate3d(0, 100%, 0);
-    }
-
-    100% {
-      transform: translate(-100%, -100%) translate3d(0, 0, 0);
-    }
-  }
-`;
 
 export default Recipecard;

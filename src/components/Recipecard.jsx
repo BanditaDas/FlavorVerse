@@ -1,27 +1,17 @@
 import React from "react";
-import { FaLeaf, FaClock, FaFire, FaUtensils } from "react-icons/fa";
+import { FaLeaf, FaClock, FaFire,FaUtensils } from "react-icons/fa";
 
 function Recipecard({ recipe }) {
   return (
-    <div className="w-70 bg-white rounded-3xl p-3 shadow-lg border border-gray-100 hover:scale-105 transition-all duration-300">
+    <div className="w-70 h-100 bg-white rounded-3xl p-3 flex flex-col gap-1 shadow-lg border border-gray-100 hover:scale-105 transition-all duration-300">
       
       {/* Image */}
-      <div className="relative">
+      <div className="relative h-full  overflow-hidden rounded-2xl">
         <img
           src={recipe.imageUrl}
           alt={recipe.name}
-          className="w-full h-56 object-cover rounded-2xl"
+          className="w-full h-full object-cover "
         />
-
-        {/* Price */}
-        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-xl font-semibold text-purple-700 shadow">
-          ₹{recipe.price}
-        </div>
-      </div>
-
-      {/* Delivery Banner */}
-      <div className="mt-3 bg-purple-600 text-white text-xs py-2 px-3 rounded-xl flex items-center gap-2">
-        🚚 Free Delivery Until {recipe.deliveryDate}
       </div>
 
       {/* Recipe Name */}
@@ -36,9 +26,9 @@ function Recipecard({ recipe }) {
       </div>
 
       {/* Description */}
-      <p className="text-gray-500 text-sm mt-2 line-clamp-2">
+      {/* <p className="text-gray-500 text-sm mt-2 line-clamp-2">
         {recipe.description}
-      </p>
+      </p> */}
 
       {/* Tags */}
       <div className="grid grid-cols-4 gap-2 mt-5">

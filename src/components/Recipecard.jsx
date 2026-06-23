@@ -5,14 +5,20 @@ import { SlFire } from "react-icons/sl";
 import { LuUtensils } from "react-icons/lu";
 
 function Recipecard({ recipe }) {
-  
+  const truncateText = (text, charLimit) => {
+    if (!text) return "";
+    if (text.length > charLimit) {
+      return text.slice(0, charLimit) + "...";
+    }
+    return text;
+  };
 
   return (
-    <div className="w-70 h-100 bg-white rounded-3xl p-3 flex flex-col gap-1 shadow-lg border border-gray-100 hover:scale-105 transition-all duration-300">
+    <div className="w-70 h-100 bg-[#FFFCF9] rounded-3xl p-3 flex flex-col gap-1 shadow-lg border border-gray-100 hover:scale-105 transition-all duration-300">
       
       {/* Image */}
       <div className="relative h-full  overflow-hidden rounded-2xl">
-        <img
+        <img  
           src={recipe.imageUrl}
           alt={recipe.name}
           className="w-full h-full object-cover "
@@ -22,7 +28,7 @@ function Recipecard({ recipe }) {
       {/* Recipe Name */}
       <div className="mt-4 flex items-center justify-between">
         <h2 className="text-xl font-bold text-[#9F2D00]">
-          {recipe.name}
+          {truncateText(recipe.name, 20)}
         </h2> 
       </div>
 

@@ -5,6 +5,8 @@ import { SlFire } from "react-icons/sl";
 import { LuUtensils } from "react-icons/lu";
 
 function Recipecard({ recipe }) {
+  
+
   return (
     <div className="w-70 h-100 bg-white rounded-3xl p-3 flex flex-col gap-1 shadow-lg border border-gray-100 hover:scale-105 transition-all duration-300">
       
@@ -19,7 +21,7 @@ function Recipecard({ recipe }) {
 
       {/* Recipe Name */}
       <div className="mt-4 flex items-center justify-between">
-        <h2 className="text-xl font-bold text-gray-800">
+        <h2 className="text-xl font-bold text-[#9F2D00]">
           {recipe.name}
         </h2> 
       </div>
@@ -28,12 +30,12 @@ function Recipecard({ recipe }) {
       <div className="grid grid-cols-4 gap-2 mt-5">
         <div className="flex flex-col items-center bg-[#faeedf] rounded-xl p-2">
           <TbLeaf className="text-[#9F2D00]" />
-          <span className="text-[11px] mt-1">{recipe.ingredients?.[0]}</span>
+          <span className="text-[11px] mt-1">{truncateText(recipe.ingredients?.[0], 4)}</span>
         </div>
 
         <div className="flex flex-col items-center bg-[#faeedf] rounded-xl p-2">
           <LuUtensils className="text-[#9F2D00]" />
-          <span className="text-[11px] mt-1">{recipe.ingredients?.[1]}</span>
+          <span className="text-[11px] mt-1">{truncateText(recipe.ingredients?.[1], 4)}</span>
         </div>
 
         <div className="flex flex-col items-center bg-[#faeedf] rounded-xl p-2">

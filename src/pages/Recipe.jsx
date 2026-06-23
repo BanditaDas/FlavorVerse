@@ -40,7 +40,7 @@ function Recipe() {
   }
 
   return (
-    <div className="flex flex-wrap gap-6 p-6">
+    <div className="flex flex-wrap justify-center gap-6 overflow-x-hidden">
       {recipes.map((recipe) => (
         <Recipecard key={recipe.id} recipe={recipe} />
       ))}

@@ -14,14 +14,14 @@ function Recipecard({ recipe }) {
   };
 
   return (
-    <div className="w-70 h-100 bg-[#FFFCF9] rounded-3xl p-3 flex flex-col gap-1 shadow-lg border border-gray-100 hover:scale-105 transition-all duration-300">
+    <div className="group w-70 h-100 bg-[#FFFCF9] rounded-3xl p-3 flex flex-col gap-1 shadow-lg border border-gray-100 transition-all duration-300">
       
       {/* Image */}
-      <div className="relative h-full  overflow-hidden rounded-2xl">
+      <div className="relative h-full overflow-hidden rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-5">
         <img  
           src={recipe.imageUrl}
           alt={recipe.name}
-          className="w-full h-full object-cover "
+          className="w-full h-full object-cover"
         />
       </div>
 
@@ -36,12 +36,12 @@ function Recipecard({ recipe }) {
       <div className="grid grid-cols-4 gap-2 mt-5">
         <div className="flex flex-col items-center bg-[#faeedf] rounded-xl p-2">
           <TbLeaf className="text-[#9F2D00]" />
-          <span className="text-[11px] mt-1">{truncateText(recipe.ingredients?.[0], 4)}</span>
+          <span className="text-[11px] mt-1">{truncateText(recipe.ingredients?.[0], 5)}</span>
         </div>
 
         <div className="flex flex-col items-center bg-[#faeedf] rounded-xl p-2">
           <LuUtensils className="text-[#9F2D00]" />
-          <span className="text-[11px] mt-1">{truncateText(recipe.ingredients?.[1], 4)}</span>
+          <span className="text-[11px] mt-1">{truncateText(recipe.ingredients?.[1], 5)}</span>
         </div>
 
         <div className="flex flex-col items-center bg-[#faeedf] rounded-xl p-2">

@@ -1,5 +1,8 @@
 import React from "react";
-import { FaLeaf, FaClock, FaFire,FaUtensils } from "react-icons/fa";
+import { TbLeaf } from "react-icons/tb";
+import { FaRegClock } from "react-icons/fa6";
+import { SlFire } from "react-icons/sl";
+import { LuUtensils } from "react-icons/lu";
 
 function Recipecard({ recipe }) {
   return (
@@ -18,39 +21,30 @@ function Recipecard({ recipe }) {
       <div className="mt-4 flex items-center justify-between">
         <h2 className="text-xl font-bold text-gray-800">
           {recipe.name}
-        </h2>
-
-        <button className="text-purple-600 font-semibold text-sm hover:text-purple-800">
-          View →
-        </button>
+        </h2> 
       </div>
-
-      {/* Description */}
-      {/* <p className="text-gray-500 text-sm mt-2 line-clamp-2">
-        {recipe.description}
-      </p> */}
 
       {/* Tags */}
       <div className="grid grid-cols-4 gap-2 mt-5">
-        <div className="flex flex-col items-center bg-gray-100 rounded-xl p-2">
-          <FaLeaf className="text-purple-600" />
+        <div className="flex flex-col items-center bg-[#faeedf] rounded-xl p-2">
+          <TbLeaf className="text-[#9F2D00]" />
           <span className="text-[11px] mt-1">{recipe.ingredients?.[0]}</span>
         </div>
 
-        <div className="flex flex-col items-center bg-gray-100 rounded-xl p-2">
-          <FaUtensils className="text-purple-600" />
+        <div className="flex flex-col items-center bg-[#faeedf] rounded-xl p-2">
+          <LuUtensils className="text-[#9F2D00]" />
           <span className="text-[11px] mt-1">{recipe.ingredients?.[1]}</span>
         </div>
 
-        <div className="flex flex-col items-center bg-gray-100 rounded-xl p-2">
-          <FaFire className="text-purple-600" />
+        <div className="flex flex-col items-center bg-[#faeedf] rounded-xl p-2">
+          <SlFire className="text-[#9F2D00]" />
           <span className="text-[11px] mt-1">
             {recipe.calories} Cal
           </span>
         </div>
 
-        <div className="flex flex-col items-center bg-gray-100 rounded-xl p-2">
-          <FaClock className="text-purple-600" />
+        <div className="flex flex-col items-center bg-[#faeedf] rounded-xl p-2">
+          <FaRegClock className="text-[#9F2D00]" />
           <span className="text-[11px] mt-1">
             {recipe.time} min
           </span>

@@ -7,13 +7,13 @@ function Recipe({ searchQuery }) {
   const [displayedRecipes, setDisplayedRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // 1. Fetch initial recipes on component mount
   useEffect(() => {
     const fetchRecipes = async () => {
       setLoading(true);
       try {
-        // Fetch all recipes initially to have a list to fall back to
-        const allRecipesResponse = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`);
-        const allRecipesData = await allRecipesResponse.json();
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`);
+        const data = await response.json();
         
         const formatMeal = (meal) => ({
           id: meal.idMeal,
@@ -27,8 +27,8 @@ function Recipe({ searchQuery }) {
           deliveryDate: "Today",
         });
 
-        if (allRecipesData.meals) {
-          const formatted = allRecipesData.meals.map(formatMeal);
+        if (data.meals) {
+          const formatted = data.meals.map(formatMeal);
           setAllRecipes(formatted);
           setDisplayedRecipes(formatted);
         }
@@ -43,27 +43,23 @@ function Recipe({ searchQuery }) {
     fetchRecipes();
   }, []);
 
+  // 2. Perform search when searchQuery changes (with Debounce)
   useEffect(() => {
     const performSearch = async () => {
-      if (!searchQuery) {
+      // If search is cleared, show all recipes again
+      if (!searchQuery || searchQuery.trim() === "") {
         setDisplayedRecipes(allRecipes);
         return;
       }
 
       setLoading(true);
       try {
-        const searchByNameUrl = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchQuery}`;
-        const searchByIngredientUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchQuery}`;
+        // Use only the first letter of the search query
+        const firstLetter = searchQuery.trim()[0];
+        const searchUrl = `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`;
 
-        const [nameResponse, ingredientResponse] = await Promise.all([
-          fetch(searchByNameUrl),
-          fetch(searchByIngredientUrl),
-        ]);
-
-        const nameData = await nameResponse.json();
-        const ingredientData = await ingredientResponse.json();
-
-        const combinedMeals = new Map();
+        const response = await fetch(searchUrl);
+        const data = await response.json();
 
         const formatMeal = (meal) => ({
           id: meal.idMeal,
@@ -76,27 +72,13 @@ function Recipe({ searchQuery }) {
           time: Math.floor(Math.random() * 20) + 10,
           deliveryDate: "Today",
         });
-
-        if (nameData.meals) {
-          nameData.meals.forEach(meal => combinedMeals.set(meal.idMeal, formatMeal(meal)));
-        }
-
-        if (ingredientData.meals) {
-          for (const partialMeal of ingredientData.meals) {
-            if (!combinedMeals.has(partialMeal.idMeal)) {
-              const detailResponse = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${partialMeal.idMeal}`);
-              const detailData = await detailResponse.json();
-              if (detailData.meals) {
-                combinedMeals.set(detailData.meals[0].idMeal, formatMeal(detailData.meals[0]));
-              }
-            }
-          }
-        }
-
-        const searchResults = Array.from(combinedMeals.values());
+        
+        const searchResults = data.meals ? data.meals.map(formatMeal) : [];
+        
+        // Handle "Not Found" State
         if (searchResults.length === 0) {
-          toast.info("No recipes found. Showing all recipes.");
-          setDisplayedRecipes(allRecipes);
+          toast.error("Not found! Try a different recipe or ingredient.");
+          setDisplayedRecipes([]); // Clears the screen so no wrong recipes show
         } else {
           setDisplayedRecipes(searchResults);
         }
@@ -108,26 +90,37 @@ function Recipe({ searchQuery }) {
       }
     };
 
-    performSearch();
-  }, [searchQuery, allRecipes]);
+    // DEBOUNCE LOGIC: Wait 500ms after the user stops typing before searching
+    const delayDebounceFn = setTimeout(() => {
+      // Only run search if allRecipes has been loaded to prevent premature searches on mount
+      if (allRecipes.length > 0 || searchQuery) {
+        performSearch();
+      }
+    }, 500);
+
+    // Cleanup function clears the timeout if the user keeps typing
+    return () => clearTimeout(delayDebounceFn);
+
+  // Notice we removed allRecipes from the dependency array below to prevent infinite loops!
+  }, [searchQuery]); 
 
   if (loading) {
-    return <div className="p-6 text-center">Loading recipes...</div>;
+    return <div className="p-6 text-center text-orange-800 text-xl font-semibold mt-10">Loading recipes...</div>;
   }
 
   return (
-    <>
-      <h1 className="text-center text-4xl font-bold text-orange-800 tracking-wide">Our Recipes</h1>
+    <div className="pb-20">
+      <h1 className="text-center text-4xl font-bold text-orange-800 tracking-wide mt-10">Our Recipes</h1>
       <div className="flex flex-wrap justify-center gap-6 mt-10">
         {displayedRecipes.length > 0 ? (
           displayedRecipes.map((recipe) => (
-          <Recipecard key={recipe.id} recipe={recipe} />
-        ))
+            <Recipecard key={recipe.id} recipe={recipe} />
+          ))
         ) : (
-          !loading && <p className="text-center text-xl text-gray-500 mt-10">No recipes found. Try a different search!</p>
+          !loading && <p className="text-center text-xl text-gray-500 mt-10">No recipes match your search.</p>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

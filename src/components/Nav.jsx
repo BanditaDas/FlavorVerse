@@ -7,7 +7,7 @@ import Button from './Button';
 function Nav({ isVisible, searchQuery, setSearchQuery }) {
   return (
     <nav className={`fixed top-10 left-1/2 -translate-x-1/2 w-[calc(100%-5rem)] z-50 flex items-center justify-between px-8 py-5 mb-8 bg-white/70 rounded-2xl shadow-sm backdrop-blur-md border border-orange-200 transition-transform duration-300 ease-in-out ${
-      isVisible ? 'translate-y-0' : '-translate-y-[150%]'
+      isVisible ? 'translate-y-0' : 'translate-y-[-150%]'
     }`}
     style={{ maxWidth: '1600px' }}
     >

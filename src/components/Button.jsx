@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = ( {bname} ) => {
+const Button = ( {bname, isActive} ) => {
   return (
-    <StyledWrapper>
-      <button className="cta">
+    <StyledWrapper isActive={isActive}>
+      <button className={`cta ${isActive ? 'active' : ''}`}>
         <span className="hover-underline-animation"> {bname} </span>
       </button>
     </StyledWrapper>
@@ -12,7 +12,7 @@ const Button = ( {bname} ) => {
 }
 
 const StyledWrapper = styled.div`
-  .cta {
+  .cta {  
     border: none;
     background: none;
     cursor: pointer;
@@ -24,6 +24,10 @@ const StyledWrapper = styled.div`
     font-size: 14px;
     padding-right: 15px;
     text-transform: uppercase;
+  }
+
+  .cta.active span, .cta:hover span {
+    color: #9A3412; /* orange-800 */
   }
 
   .cta svg {
@@ -41,21 +45,26 @@ const StyledWrapper = styled.div`
 
   .hover-underline-animation {
     position: relative;
-    color: black;
+    color: #000;
     padding-bottom: 20px;
+    transition: color 0.25s ease-out;
   }
 
   .hover-underline-animation:after {
     content: "";
     position: absolute;
-    width: 75%;
+    width: 79%;
     transform: scaleX(0);
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #000000;
+    background-color: #9A3412; /* orange-800 */
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
+  }
+  .cta.active .hover-underline-animation:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
   }
 
   .cta:hover .hover-underline-animation:after {

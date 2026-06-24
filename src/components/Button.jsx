@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Button = ( {bname, isActive} ) => {
   return (
-    <StyledWrapper isActive={isActive}>
+    <StyledWrapper $isActive={isActive}>
       <button className={`cta ${isActive ? 'active' : ''}`}>
         <span className="hover-underline-animation"> {bname} </span>
       </button>

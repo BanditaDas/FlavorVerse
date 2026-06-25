@@ -65,20 +65,33 @@ function RecipeDetail() {
   }
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
-      <div className="max-w-4xl mx-auto bg-white/70 backdrop-blur-md rounded-2xl shadow-lg p-8 border border-orange-200">
-        <h1 className="text-4xl font-bold text-orange-800 mb-4">{recipe.name}</h1>
-        <img src={recipe.imageUrl} alt={recipe.name} className="w-full h-96 object-cover rounded-lg mb-6"/>
-        <div className="flex justify-between text-lg text-orange-700 mb-6">
-          <p><strong>Category:</strong> {recipe.category}</p>
-          <p><strong>Area:</strong> {recipe.area}</p>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 h-[calc(100vh-10rem)]">
+      <div className="max-w-6xl mx-auto rounded-2xl shadow-lg h-full overflow-hidden">
+        <div className="flex flex-col md:flex-row h-full gap-6">
+          {/* Image Section (Not scrollable) */}
+          <div className="relative h-full hidden md:block md:w-1/2 rounded-2xl overflow-hidden ">
+            <img
+              src={recipe.imageUrl}
+              alt={recipe.name}
+              className="absolute inset-0 w-full h-full object-cover rounded-l-2xl"
+            />
+          </div>
+
+          {/* Details Section (Scrollable) */}
+          <div className="flex flex-col p-8 overflow-y-auto md:w-1/2rounded-2xl overflow-hidden">
+            <h1 className="text-4xl font-bold text-orange-800 mb-4">{recipe.name}</h1>
+            <div className="flex justify-between text-lg text-orange-700 mb-6">
+              <p><strong>Category:</strong> {recipe.category}</p>
+              <p><strong>Area:</strong> {recipe.area}</p>
+            </div>
+            <h2 className="text-2xl font-semibold text-orange-800 mb-2">Ingredients</h2>
+            <ul className="list-disc list-inside mb-6 text-gray-700">
+              {recipe.ingredients.map((ing, index) => <li key={index}>{ing}</li>)}
+            </ul>
+            <h2 className="text-2xl font-semibold text-orange-800 mb-2">Instructions</h2>
+            <p className="text-gray-700 whitespace-pre-wrap">{recipe.instructions}</p>
+          </div>
         </div>
-        <h2 className="text-2xl font-semibold text-orange-800 mb-2">Ingredients</h2>
-        <ul className="list-disc list-inside mb-6 text-gray-700">
-          {recipe.ingredients.map((ing, index) => <li key={index}>{ing}</li>)}
-        </ul>
-        <h2 className="text-2xl font-semibold text-orange-800 mb-2">Instructions</h2>
-        <p className="text-gray-700 whitespace-pre-wrap">{recipe.instructions}</p>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { TbLeaf } from "react-icons/tb";
 import { FaRegClock } from "react-icons/fa6";
 import { SlFire } from "react-icons/sl";
@@ -14,7 +15,7 @@ function Recipecard({ recipe }) {
   };
 
   return (
-    <div className="group w-70 h-100 bg-[#FFFCF9] rounded-3xl p-3 flex flex-col gap-1 shadow-lg border border-gray-100 transition-all duration-300">
+    <Link to={`/recipe/${recipe.id}`} className="group w-70 h-100 bg-[#FFFCF9] rounded-3xl p-3 flex flex-col gap-1 shadow-lg border border-gray-100 transition-all duration-300 no-underline">
       
       {/* Image */}
       <div className="relative h-full overflow-hidden rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-5">
@@ -58,7 +59,7 @@ function Recipecard({ recipe }) {
           </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

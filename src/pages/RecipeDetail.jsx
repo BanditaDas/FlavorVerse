@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { FaStar, FaUser, FaRegClock } from "react-icons/fa6";
 import { toast } from "react-toastify";
-import { FaRegClock } from "react-icons/fa6";
-import { SlFire } from "react-icons/sl";
 
-function RecipeDetail() {
+const RecipeDetails = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchRecipeDetail = async () => {
+    const fetchRecipeDetails = async () => {
       setLoading(true);
       try {
         const response = await fetch(
@@ -18,29 +17,31 @@ function RecipeDetail() {
         );
         const data = await response.json();
 
-        if (data.meals && data.meals[0]) {
+        if (data.meals && data.meals.length > 0) {
           const meal = data.meals[0];
+
+          // Format ingredients
           const ingredients = [];
           for (let i = 1; i <= 20; i++) {
             if (meal[`strIngredient${i}`]) {
               ingredients.push(
-                `${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}`
+                `${meal[`strMeasure${i}`]} ${meal[`strIngredient${i}`]}`
               );
-            } else {
-              break;
             }
           }
 
+          // Format steps
+          const steps = meal.strInstructions
+            .split("\r\n")
+            .filter((step) => step.trim() !== "");
+
           setRecipe({
-            id: meal.idMeal,
             name: meal.strMeal,
             imageUrl: meal.strMealThumb,
-            instructions: meal.strInstructions,
             category: meal.strCategory,
             area: meal.strArea,
-            ingredients: ingredients,
-            calories: Math.floor(Math.random() * 300) + 200, // Mock data
-            time: Math.floor(Math.random() * 20) + 10, // Mock data
+            ingredients,
+            steps,
           });
         } else {
           toast.error("Recipe not found.");
@@ -53,7 +54,7 @@ function RecipeDetail() {
       }
     };
 
-    fetchRecipeDetail();
+    fetchRecipeDetails();
   }, [id]);
 
   if (loading) {
@@ -61,40 +62,77 @@ function RecipeDetail() {
   }
 
   if (!recipe) {
-    return <div className="p-6 text-center text-red-500 text-xl font-semibold mt-10">Recipe not found.</div>;
+    return <div className="p-6 text-center text-gray-500 text-xl mt-10">Recipe not found.</div>;
   }
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 h-[calc(100vh-10rem)]">
-      <div className="max-w-6xl mx-auto rounded-2xl shadow-lg h-full overflow-hidden">
-        <div className="flex flex-col md:flex-row h-full gap-6">
-          {/* Image Section (Not scrollable) */}
-          <div className="relative h-full hidden md:block md:w-1/2 rounded-2xl overflow-hidden ">
+    <div className="max-w-6xl mx-auto bg-[#FFFCF9] rounded-3xl shadow-lg p-8 md:p-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-8">
+        {/* Left Column: Title, Image, and Steps */}
+        <div className="md:col-span-2">
+          {/* Header */}
+          <header className="mb-8 flex items-end gap-5">
+            <h1 className="text-4xl md:text-5xl font-bold text-[#9F2D00]">
+              {recipe.name}
+            </h1>
+            <p className="text-sm font-semibold text-[#9F2D00] uppercase tracking-widest ">
+              {recipe.category} | {recipe.area}
+            </p>
+            
+          </header>
+
+          {/* <div className="mb-12 h-[20vh] block md:hidden">
             <img
               src={recipe.imageUrl}
               alt={recipe.name}
-              className="absolute inset-0 w-full h-full object-cover rounded-l-2xl"
+              className="w-full h-auto  object-cover rounded-2xl shadow-lg"
             />
+          </div> */}
+
+          {/* Ingredients */}
+          <div className="mb-12">
+            <h2 className="text-3xl font-bold text-[#9F2D00] mb-6">Ingredients</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {recipe.ingredients.map((item, index) => (
+                <div
+                  key={index}
+                  className="bg-[#faeedf] rounded-xl p-3 text-sm text-orange-900 text-center"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Details Section (Scrollable) */}
-          <div className="flex flex-col p-8 overflow-y-auto md:w-1/2rounded-2xl overflow-hidden">
-            <h1 className="text-4xl font-bold text-orange-800 mb-4">{recipe.name}</h1>
-            <div className="flex justify-between text-lg text-orange-700 mb-6">
-              <p><strong>Category:</strong> {recipe.category}</p>
-              <p><strong>Area:</strong> {recipe.area}</p>
+          {/* Steps */}
+          <div>
+            <h2 className="text-3xl font-bold text-[#9F2D00] mb-6">Instructions</h2>
+            <div className="space-y-6">
+              {recipe.steps.map((step, index) => (
+                <div key={index} className="flex items-start gap-5">
+                  <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-[#faeedf] text-[#9F2D00] font-bold text-lg">
+                    {index + 1}
+                  </div>
+                  <p className="text-orange-900/90 leading-relaxed pt-1.5">{step}</p>
+                </div>
+              ))}
             </div>
-            <h2 className="text-2xl font-semibold text-orange-800 mb-2">Ingredients</h2>
-            <ul className="list-disc list-inside mb-6 text-gray-700">
-              {recipe.ingredients.map((ing, index) => <li key={index}>{ing}</li>)}
-            </ul>
-            <h2 className="text-2xl font-semibold text-orange-800 mb-2">Instructions</h2>
-            <p className="text-gray-700 whitespace-pre-wrap">{recipe.instructions}</p>
+          </div>
+        </div>
+
+        {/* Right Column: Image and Ingredients */}
+        <div className="md:col-span-1">
+          <div className="sticky top-28 space-y-8">
+            <img
+              src={recipe.imageUrl}
+              alt={recipe.name}
+              className="w-full h-[50vh] object-cover rounded-2xl shadow-lg hidden md:block"
+            />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default RecipeDetail;
+export default RecipeDetails;

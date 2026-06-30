@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { FaStar, FaUser, FaRegClock } from "react-icons/fa6";
+import { FaRegClock } from "react-icons/fa6";
+import { SlFire } from "react-icons/sl";
 import { toast } from "react-toastify";
 
 const RecipeDetails = () => {
@@ -33,7 +34,9 @@ const RecipeDetails = () => {
           // Format steps
           const steps = meal.strInstructions
             .split("\r\n")
-            .filter((step) => step.trim() !== "");
+            // Remove any leading numbering like "1. " or "STEP 1" from the instruction text.
+            .map((step) => step.replace(/^\s*(?:step\s*\d+|\d+\.)\s*/i, "").trim())
+            .filter((step) => step && !/^\d+$/.test(step));
 
           setRecipe({
             name: meal.strMeal,
@@ -41,6 +44,8 @@ const RecipeDetails = () => {
             category: meal.strCategory,
             area: meal.strArea,
             ingredients,
+            calories: Math.floor(Math.random() * 300) + 200,
+            time: Math.floor(Math.random() * 20) + 10,
             steps,
           });
         } else {
@@ -81,14 +86,6 @@ const RecipeDetails = () => {
             
           </header>
 
-          {/* <div className="mb-12 h-[20vh] block md:hidden">
-            <img
-              src={recipe.imageUrl}
-              alt={recipe.name}
-              className="w-full h-auto  object-cover rounded-2xl shadow-lg"
-            />
-          </div> */}
-
           {/* Ingredients */}
           <div className="mb-12">
             <h2 className="text-3xl font-bold text-[#9F2D00] mb-6">Ingredients</h2>
@@ -122,12 +119,27 @@ const RecipeDetails = () => {
 
         {/* Right Column: Image and Ingredients */}
         <div className="md:col-span-1">
-          <div className="sticky top-28 space-y-8">
+          <div className=" space-y-8">
             <img
               src={recipe.imageUrl}
               alt={recipe.name}
               className="w-full h-[50vh] object-cover rounded-2xl shadow-lg hidden md:block"
             />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col items-center bg-[#faeedf] rounded-xl p-3">
+                <SlFire className="text-[#9F2D00] text-xl" />
+                <span className="text-sm mt-2 font-semibold text-orange-900">
+                  {recipe.calories} Cal
+                </span>
+              </div>
+
+              <div className="flex flex-col items-center bg-[#faeedf] rounded-xl p-3">
+                <FaRegClock className="text-[#9F2D00] text-xl" />
+                <span className="text-sm mt-2 font-semibold text-orange-900">
+                  {recipe.time} min
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

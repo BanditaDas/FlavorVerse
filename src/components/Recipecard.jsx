@@ -28,7 +28,7 @@ function Recipecard({ recipe }) {
 
       {/* Recipe Name */}
       <div className="mt-4 flex items-center justify-between">
-        <h2 className="text-xl font-bold text-[#9F2D00]">
+        <h2 className="text-xl font-bold text-[#21291F]">
           {truncateText(recipe.name, 20)}
         </h2> 
       </div>
@@ -36,24 +36,24 @@ function Recipecard({ recipe }) {
       {/* Tags */}
       <div className="grid grid-cols-4 gap-2 mt-5">
         <div className="flex flex-col items-center bg-[#ECE2CD] rounded-xl p-2">
-          <TbLeaf className="text-[#9F2D00]" />
+          <TbLeaf className="text-[#7C8B6E]" />
           <span className="text-[11px] mt-1">{truncateText(recipe.ingredients?.[0], 5)}</span>
         </div>
 
         <div className="flex flex-col items-center bg-[#ECE2CD] rounded-xl p-2">
-          <LuUtensils className="text-[#9F2D00]" />
+          <LuUtensils className="text-[#7C8B6E]" />
           <span className="text-[11px] mt-1">{truncateText(recipe.ingredients?.[1], 5)}</span>
         </div>
 
         <div className="flex flex-col items-center bg-[#ECE2CD] rounded-xl p-2">
-          <SlFire className="text-[#9F2D00]" />
+          <SlFire className="text-[#7C8B6E]" />
           <span className="text-[11px] mt-1">
             {recipe.calories} Cal
           </span>
         </div>
 
         <div className="flex flex-col items-center bg-[#ECE2CD] rounded-xl p-2">
-          <FaRegClock className="text-[#9F2D00]" />
+          <FaRegClock className="text-[#7C8B6E]" />
           <span className="text-[11px] mt-1">
             {recipe.time} min
           </span>

@@ -110,7 +110,9 @@ function Recipe({ searchQuery }) {
 
   return (
     <div className="pb-20">
-      <h1 className="text-center text-4xl font-bold text-orange-800 tracking-wide mt-10">Our Recipes</h1>
+      <h1 className="text-center font-['Fraunces'] text-5xl font-semibold text-[#22291F] tracking-wide mt-10">
+        Our Recipes
+      </h1>
       <div className="flex flex-wrap justify-center gap-6 mt-10">
         {displayedRecipes.length > 0 ? (
           displayedRecipes.map((recipe) => (

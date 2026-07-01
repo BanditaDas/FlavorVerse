@@ -67,15 +67,6 @@ export default function RecipeDetails() {
     fetchRecipeDetails();
   }, [id]);
 
-  useEffect(() => {
-    const link1 = document.createElement("link");
-    link1.rel = "stylesheet";
-    link1.href =
-      "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&display=swap";
-    document.head.appendChild(link1);
-    return () => document.head.removeChild(link1);
-  }, []);
-
   const gathered = checked.filter(Boolean).length;
   const total = recipe?.ingredients.length ?? 0;
   const pct = total ? Math.round((gathered / total) * 100) : 0;

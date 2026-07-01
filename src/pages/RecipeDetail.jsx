@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaRegClock, FaChevronLeft, FaChevronRight, FaCheck, FaBookOpen, FaListUl } from "react-icons/fa";
 import { SlFire } from "react-icons/sl";
@@ -210,6 +210,13 @@ export default function RecipeDetails() {
         .step-btn:hover:not(:disabled) { transform: translateY(-1px); }
         .step-btn:disabled { opacity: 0.35; cursor: not-allowed; }
       `}</style>
+
+      <Link
+        to="/recipe"
+        className="rise inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider mb-6 text-[#7C8B6F] hover:text-[#22291F] transition-colors"
+      >
+        <FaChevronLeft className="w-3 h-3" /> Back to Recipes
+      </Link>
 
       {/* Header */}
       <header className="mb-10 rise" style={{ animationDelay: "0s" }}>

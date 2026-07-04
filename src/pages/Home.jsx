@@ -32,6 +32,7 @@ function mapSlimMeal(meal) {
     id: meal.idMeal,
     name: meal.strMeal,
     imageUrl: meal.strMealThumb,
+    category: meal.strCategory, // This will be undefined, but we'll add it later for category browsing
     ingredients: [], // filter.php doesn't return ingredients — see notes above
     calories: Math.floor(Math.random() * 300) + 200,
     time: Math.floor(Math.random() * 20) + 10,
@@ -100,7 +101,17 @@ export default function Home({ searchQuery = "" }) {
         } else if (activeCategory) {
           const res = await fetch(`${BASE}/filter.php?c=${encodeURIComponent(activeCategory)}`);
           const data = await res.json();
-          setMeals((data.meals || []).map(mapSlimMeal));
+          const slimMeals = data.meals || [];
+
+          // Fetch full details for each slim meal to get ingredients
+          const fullMeals = await Promise.all(
+            slimMeals.map(async (slimMeal) => {
+              const detailRes = await fetch(`${BASE}/lookup.php?i=${slimMeal.idMeal}`);
+              const detailData = await detailRes.json();
+              return mapFullMeal(detailData.meals[0]);
+            })
+          );
+          setMeals(fullMeals);
         }
       } catch (e) {
         console.error("Failed to load meals:", e);
@@ -115,7 +126,7 @@ export default function Home({ searchQuery = "" }) {
   const isSearching = searchQuery.trim().length > 0;
 
   return (
-    <div className="min-h-screen bg-[#F3ECDD] pt-36 pb-20 px-6 md:px-12">
+    <div className="min-h-screen bg-[#F3ECDD] rounded-2xl border border-[#22291F]/10 pt-36 pb-20 px-6 md:px-12">
       {/* ── Hero: Today's Pick ─────────────────────────────────────── */}
       <section className="max-w-6xl mx-auto mb-16">
         {heroLoading || !hero ? (
@@ -179,7 +190,7 @@ export default function Home({ searchQuery = "" }) {
       {/* ── Category chips ─────────────────────────────────────────── */}
       {!isSearching && (
         <section className="max-w-6xl mx-auto mb-10 px-6 md:mx-auto md:px-0">
-          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="flex flex-wrap justify-center gap-3">
             {categories.map((cat) => {
               const active = activeCategory === cat.strCategory;
               return (

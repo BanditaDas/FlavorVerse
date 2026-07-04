@@ -7,7 +7,7 @@ function Recipe({ searchQuery }) {
   const [displayedRecipes, setDisplayedRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 1. Fetch initial recipes on component mount
+
   useEffect(() => {
     const fetchRecipes = async () => {
       setLoading(true);
@@ -43,7 +43,7 @@ function Recipe({ searchQuery }) {
     fetchRecipes();
   }, []);
 
-  // 2. Perform search when searchQuery changes (with Debounce)
+
   useEffect(() => {
     const performSearch = async () => {
       // If search is cleared, show all recipes again
@@ -78,7 +78,7 @@ function Recipe({ searchQuery }) {
         // Handle "Not Found" State
         if (searchResults.length === 0) {
           toast.error("Not found! Try a different recipe or ingredient.");
-          setDisplayedRecipes([]); // Clears the screen so no wrong recipes show
+          setDisplayedRecipes([]); 
         } else {
           setDisplayedRecipes(searchResults);
         }
@@ -90,18 +90,18 @@ function Recipe({ searchQuery }) {
       }
     };
 
-    // DEBOUNCE LOGIC: Wait 500ms after the user stops typing before searching
+
     const delayDebounceFn = setTimeout(() => {
-      // Only run search if allRecipes has been loaded to prevent premature searches on mount
+
       if (allRecipes.length > 0 || searchQuery) {
         performSearch();
       }
     }, 500);
 
-    // Cleanup function clears the timeout if the user keeps typing
+
     return () => clearTimeout(delayDebounceFn);
 
-  // Notice we removed allRecipes from the dependency array below to prevent infinite loops!
+
   }, [searchQuery]); 
 
   if (loading) {

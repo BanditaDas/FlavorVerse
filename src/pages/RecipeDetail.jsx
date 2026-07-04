@@ -242,10 +242,10 @@ export default function RecipeDetails() {
                 <button
                   key={i}
                   onClick={() => toggleIngredient(i)}
-                  className="ingredient-row flex items-center gap-3 text-left rounded-xl px-3 py-2.5 bg-(--paper-dark)/60 hover:bg-(--paper-dark)"
+                  className="ingredient-row flex items-center gap-3 text-left rounded-xl px-3 py-2.5 bg-[var(--paper-dark)]/60 hover:bg-[var(--paper-dark)]"
                 >
                   <span className={`checkbox ${checked[i] ? "checked pop" : ""}`}>
-                    {checked[i] && <FaCheck className="w-3.5 h-3.5 text-(--paper)" />}
+                    {checked[i] && <FaCheck className="w-3.5 h-3.5 text-[var(--paper)]" />}
                   </span>
                   <span
                     className="text-sm"
@@ -271,7 +271,7 @@ export default function RecipeDetails() {
                   setCookMode((v) => !v);
                   setActiveStep(0);
                 }}
-                className="font-mono text-xs uppercase tracking-wider px-3 py-2 rounded-lg bg-(--ink) text-(--paper) hover:opacity-90 transition"
+                className="font-mono text-xs uppercase tracking-wider px-3 py-2 rounded-lg bg-[var(--ink)] text-[var(--paper)] hover:opacity-90 transition"
               >
                 {cookMode ? "Show all steps" : "Cook mode"}
               </button>
@@ -285,7 +285,7 @@ export default function RecipeDetails() {
                     className="flex items-start gap-4 rise"
                     style={{ animationDelay: `${0.2 + index * 0.05}s` }}
                   >
-                    <div className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-(--paper-dark) font-mono text-sm font-medium text-(--ink)">
+                    <div className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-[var(--paper-dark)] font-mono text-sm font-medium text-[var(--ink)]">
                       {index + 1}
                     </div>
                     <p className="text-[#22291F]/85 leading-relaxed pt-1.5">{step}</p>
@@ -297,7 +297,7 @@ export default function RecipeDetails() {
                 <div className="ribbon-track mb-6">
                   <div className="ribbon-fill" style={{ width: `${cookPct}%` }} />
                 </div>
-                <div key={activeStep} className="page-in bg-(--paper-dark)/50 rounded-2xl p-8 min-h-45 flex flex-col justify-between">
+                <div key={activeStep} className="page-in bg-[var(--paper-dark)]/50 rounded-2xl p-8 min-h-45 flex flex-col justify-between">
                   <div>
                     <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#7C8B6F] mb-3">
                       Step {activeStep + 1} of {recipe.steps.length}
@@ -308,14 +308,14 @@ export default function RecipeDetails() {
                   </div>
                   <div className="flex items-center justify-between mt-8">
                     <button
-                      className="step-btn flex items-center gap-1 font-mono text-xs uppercase px-3 py-2 rounded-lg bg-(--paper)"
+                      className="step-btn flex items-center gap-1 font-mono text-xs uppercase px-3 py-2 rounded-lg bg-[var(--paper)]"
                       disabled={activeStep === 0}
                       onClick={() => setActiveStep((s) => Math.max(0, s - 1))}
                     > 
                       <FaChevronLeft className="w-4 h-4" /> Prev
                     </button>
                     <button
-                      className="step-btn flex items-center gap-1 font-mono text-xs uppercase px-3 py-2 rounded-lg bg-(--ink) text-(--paper)"
+                      className="step-btn flex items-center gap-1 font-mono text-xs uppercase px-3 py-2 rounded-lg bg-[var(--ink)] text-[var(--paper)]"
                       disabled={activeStep === recipe.steps.length - 1}
                       onClick={() => setActiveStep((s) => Math.min(recipe.steps.length - 1, s + 1))}
                     >
@@ -341,11 +341,11 @@ export default function RecipeDetails() {
 
           <div className="grid grid-cols-2 gap-3">
             <div className="pill">
-              <SlFire className="w-4 h-4 text-(--coral)" />
+              <SlFire className="w-4 h-4 text-[var(--coral)]" />
               <span className="text-sm font-medium">{recipe.calories} cal</span>
             </div>
             <div className="pill">
-              <FaRegClock className="w-4 h-4 text-(--coral)" />
+              <FaRegClock className="w-4 h-4 text-[var(--coral)]" />
               <span className="text-sm font-medium">{recipe.time} min</span>
             </div>
           </div>

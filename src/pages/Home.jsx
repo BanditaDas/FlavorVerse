@@ -39,6 +39,8 @@ function mapSlimMeal(meal) {
   };
 }
 
+const PAGE_SIZE = 12;
+
 export default function Home({ searchQuery = "" }) {
   const [hero, setHero] = useState(null);
   const [heroLoading, setHeroLoading] = useState(true);
@@ -48,6 +50,7 @@ export default function Home({ searchQuery = "" }) {
 
   const [meals, setMeals] = useState([]);
   const [mealsLoading, setMealsLoading] = useState(true);
+  const [displayedCount, setDisplayedCount] = useState(PAGE_SIZE);
 
   useEffect(() => {
     const link = document.createElement("link");
@@ -93,6 +96,7 @@ export default function Home({ searchQuery = "" }) {
     const q = searchQuery.trim();
     const load = async () => {
       setMealsLoading(true);
+      setDisplayedCount(PAGE_SIZE);
       try {
         if (q) {
           const res = await fetch(`${BASE}/search.php?s=${encodeURIComponent(q)}`);
@@ -247,11 +251,23 @@ export default function Home({ searchQuery = "" }) {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {meals.map((meal, i) => (
-              <Recipecard key={meal.id} recipe={meal} index={i} />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {meals.slice(0, displayedCount).map((meal, i) => (
+                <Recipecard key={meal.id} recipe={meal} index={i} />
+              ))}
+            </div>
+            {displayedCount < meals.length && (
+              <div className="mt-12 text-center">
+                <button
+                  onClick={() => setDisplayedCount((c) => c + PAGE_SIZE)}
+                  className="bg-[#22291F] text-[#F3ECDD] rounded-full px-6 py-3 font-['IBM_Plex_Mono'] text-xs uppercase tracking-wider transition-transform duration-200 hover:-translate-y-0.5"
+                >
+                  Show More Recipes
+                </button>
+              </div>
+            )}
+          </>
         )}
       </section>
     </div>

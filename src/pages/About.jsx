@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+import me from "/me.jpg";
 import { Link } from "react-router-dom";
 
 import {
@@ -27,19 +28,11 @@ const FEATURES = [
 const STACK = ["React", "Tailwind CSS", "React Router", "TheMealDB API"];
 
 export default function About() {
-  // useEffect(() => {
-  //   const link = document.createElement("link");
-  //   link.rel = "stylesheet";
-  //   link.href =
-  //     "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&display=swap";
-  //   document.head.appendChild(link);
-  //   return () => document.head.removeChild(link);
-  // }, []);
 
   return (
-    <div className="min-h-screen bg-[#F3ECDD] pt-36 pb-20 px-6 md:px-12">
+    <div className="min-h-screen bg-[#F3ECDD] rounded-2xl border border-[#22291F]/10 pt-36 pb-20 px-6 md:px-12">
       <div className="max-w-4xl mx-auto">
-        {/* ── Mission ─────────────────────────────────────────────── */}
+        {/* ── Mission ───────────────────────────────────── */}
         <section className="mb-16">
           <p className="font-['IBM_Plex_Mono'] text-[11px] tracking-[0.25em] uppercase text-[#7C8B6F] mb-3">
             About the project
@@ -66,7 +59,7 @@ export default function About() {
                 className="bg-white/50 border border-[#22291F]/10 rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1"
               >
                 <div className="w-10 h-10 rounded-xl bg-[#E7DCC2] flex items-center justify-center mb-4">
-                  <Icon className="w-5 h-5 text-[#E1573C]" />
+                  <Icon className="w-5 h-5 text-[#7C8B6F]" />
                 </div>
                 <h3 className="font-['Fraunces'] text-lg font-semibold text-[#22291F] mb-1.5">
                   {title}
@@ -126,8 +119,8 @@ export default function About() {
             Who built this
           </h2>
           <div className="bg-white/50 border border-[#22291F]/10 rounded-2xl p-7 flex flex-col sm:flex-row sm:items-center gap-5">
-            <div className="w-14 h-14 rounded-full bg-[#E1573C]/15 flex items-center justify-center font-['Fraunces'] text-xl font-semibold text-[#E1573C] shrink-0">
-              B
+            <div className="w-14 h-14 rounded-full bg-[#E1573C]/15 flex items-center justify-center font-['Fraunces'] text-xl font-semibold text-[#22291F] shrink-0">
+              <img src={me} alt="BD" className="w-full h-full object-cover rounded-full" />
             </div>
             <div className="flex-1">
               <p className="font-['Fraunces'] text-lg font-semibold text-[#22291F]">
@@ -139,13 +132,13 @@ export default function About() {
                 to the animations was built from scratch.
               </p>
               <div className="flex items-center gap-4 mt-4">
-                <a href="https://github.com/BanditaDas" target="_blank" rel="noopener noreferrer" className="text-[#22291F]/50 hover:text-[#22291F] transition-colors">
+                <a href="https://github.com/BanditaDas" target="_blank" rel="noopener noreferrer" className="text-[#22291F]/70 hover:text-[#22291F] transition-colors">
                   <FaGithub className="w-5 h-5" />
                 </a>
-                <a href="https://www.linkedin.com/in/banditadas-dev/" target="_blank" rel="noopener noreferrer" className="text-[#22291F]/50 hover:text-[#22291F] transition-colors">
+                <a href="https://www.linkedin.com/in/banditadas-dev/" target="_blank" rel="noopener noreferrer" className="text-[#22291F]/70 hover:text-[#22291F] transition-colors">
                   <FaLinkedin className="w-5 h-5" />
                 </a>
-                <a href="https://portfolio-six-theta-37.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-[#22291F]/50 hover:text-[#22291F] transition-colors">
+                <a href="https://portfolio-six-theta-37.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-[#22291F]/70 hover:text-[#22291F] transition-colors">
                   <FaGlobe className="w-5 h-5" />
                 </a>
               </div>

@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-// import Button from "./Button"; // restore this in your project
 import { IoIosSearch } from "react-icons/io";
 import { LuChefHat } from "react-icons/lu";
 

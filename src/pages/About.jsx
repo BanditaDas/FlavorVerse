@@ -2,14 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import {
-  FaSearch,
-  FaUtensils,
-  FaBookOpen,
-  FaGithub,
-  FaLinkedin,
-  FaGlobe,
-  FaArrowLeft,
-  FaConciergeBell,
+  FaSearch, FaUtensils, FaBookOpen, FaGithub, FaLinkedin, FaGlobe, FaArrowLeft, FaConciergeBell,
 } from "react-icons/fa";
 
 
@@ -34,14 +27,14 @@ const FEATURES = [
 const STACK = ["React", "Tailwind CSS", "React Router", "TheMealDB API"];
 
 export default function About() {
-  useEffect(() => {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&display=swap";
-    document.head.appendChild(link);
-    return () => document.head.removeChild(link);
-  }, []);
+  // useEffect(() => {
+  //   const link = document.createElement("link");
+  //   link.rel = "stylesheet";
+  //   link.href =
+  //     "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&display=swap";
+  //   document.head.appendChild(link);
+  //   return () => document.head.removeChild(link);
+  // }, []);
 
   return (
     <div className="min-h-screen bg-[#F3ECDD] pt-36 pb-20 px-6 md:px-12">

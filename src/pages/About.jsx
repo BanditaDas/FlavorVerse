@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import {
-  Link,
   FaSearch,
   FaUtensils,
   FaBookOpen,
@@ -145,16 +146,15 @@ export default function About() {
                 to the animations was built from scratch.
               </p>
               <div className="flex items-center gap-4 mt-4">
-                {/* placeholders — swap hrefs for your real profiles */}
-                <a href="https://github.com/BanditaDas" className="text-[#22291F]/50 hover:text-[#22291F] transition-colors">
+                <a href="https://github.com/BanditaDas" target="_blank" rel="noopener noreferrer" className="text-[#22291F]/50 hover:text-[#22291F] transition-colors">
                   <FaGithub className="w-5 h-5" />
                 </a>
-                <a href="https://www.linkedin.com/in/banditadas-dev/" className="text-[#22291F]/50 hover:text-[#22291F] transition-colors">
+                <a href="https://www.linkedin.com/in/banditadas-dev/" target="_blank" rel="noopener noreferrer" className="text-[#22291F]/50 hover:text-[#22291F] transition-colors">
                   <FaLinkedin className="w-5 h-5" />
                 </a>
-                {/* <a href="https://bandita-das.github.io/" className="text-[#22291F]/50 hover:text-[#22291F] transition-colors">
+                <a href="https://portfolio-six-theta-37.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-[#22291F]/50 hover:text-[#22291F] transition-colors">
                   <FaGlobe className="w-5 h-5" />
-                </a> */}
+                </a>
               </div>
             </div>
           </div>

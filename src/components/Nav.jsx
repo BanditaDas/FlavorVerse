@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { LuChefHat } from "react-icons/lu";
 
@@ -11,15 +11,16 @@ const LINKS = [
 
 function Nav({ isVisible = true, searchQuery = "", setSearchQuery = () => {} }) {
   const navigate = useNavigate();
-  const location = useLocation();
+  const prevQueryRef = useRef("");
 
-  // Redirect to /recipe the moment there's a search query — from ANY page.
   useEffect(() => {
     const q = searchQuery.trim();
-    if (q && location.pathname !== "/recipe") {
+    const prevQ = prevQueryRef.current;
+    if (q && !prevQ) {
       navigate("/recipe");
     }
-  }, [searchQuery, location.pathname, navigate]);
+    prevQueryRef.current = q;
+  }, [searchQuery, navigate]);
 
   return (
     <nav

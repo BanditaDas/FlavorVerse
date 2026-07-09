@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import Recipecard from "../components/Recipecard";
 import { toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
 
 function Recipe({ searchQuery }) {
+  const [searchParams] = useSearchParams();
   const [allRecipes, setAllRecipes] = useState([]);
   const [displayedRecipes, setDisplayedRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -42,6 +44,8 @@ function Recipe({ searchQuery }) {
   }, []);
 
   useEffect(() => {
+    const queryFromUrl = searchParams.get("q") || searchQuery;
+
     const performSearch = async (thisRequestId) => {
       if (!searchQuery || searchQuery.trim() === "") {
         if (thisRequestId === requestIdRef.current) setDisplayedRecipes(allRecipes);
@@ -73,14 +77,14 @@ function Recipe({ searchQuery }) {
     };
 
     const delayDebounceFn = setTimeout(() => {
-      if (allRecipes.length > 0 || searchQuery) {
+      if (allRecipes.length > 0 || queryFromUrl) {
         const thisRequestId = ++requestIdRef.current;
         performSearch(thisRequestId);
       }
     }, 500);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [searchQuery]);
+  }, [searchQuery, allRecipes, searchParams]);
 
   if (loading) {
     return <div className="p-6 text-center text-orange-800 text-xl font-semibold mt-10">Loading recipes...</div>;

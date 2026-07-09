@@ -56,7 +56,7 @@ export default function Home({ searchQuery = "" }) {
   useEffect(() => {
     const q = searchQuery.trim();
     if (q) {
-      navigate(`/recipe`);
+      navigate(`/recipe?q=${encodeURIComponent(q)}`);
     }
   }, [searchQuery, navigate]);
 

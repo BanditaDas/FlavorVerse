@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaRandom, FaRegClock, FaArrowRight } from "react-icons/fa";
 import { SlFire } from "react-icons/sl";
 import Recipecard from "../components/Recipecard";
@@ -42,6 +43,7 @@ function mapSlimMeal(meal) {
 const PAGE_SIZE = 12;
 
 export default function Home({ searchQuery = "" }) {
+  const navigate = useNavigate();
   const [hero, setHero] = useState(null);
   const [heroLoading, setHeroLoading] = useState(true);
 
@@ -60,6 +62,13 @@ export default function Home({ searchQuery = "" }) {
     document.head.appendChild(link);
     return () => document.head.removeChild(link);
   }, []);
+
+  useEffect(() => {
+    const q = searchQuery.trim();
+    if (q) {
+      navigate(`/recipe?q=${encodeURIComponent(q)}`);
+    }
+  }, [searchQuery, navigate]);
 
   const fetchHero = useCallback(async () => {
     setHeroLoading(true);
@@ -93,30 +102,24 @@ export default function Home({ searchQuery = "" }) {
   }, []);
 
   useEffect(() => {
-    const q = searchQuery.trim();
     const load = async () => {
       setMealsLoading(true);
       setDisplayedCount(PAGE_SIZE);
       try {
-        if (q) {
-          const res = await fetch(`${BASE}/search.php?s=${encodeURIComponent(q)}`);
-          const data = await res.json();
-          setMeals((data.meals || []).map(mapFullMeal));
-        } else if (activeCategory) {
-          const res = await fetch(`${BASE}/filter.php?c=${encodeURIComponent(activeCategory)}`);
-          const data = await res.json();
-          const slimMeals = data.meals || [];
+        if (!activeCategory) return;
+        const res = await fetch(`${BASE}/filter.php?c=${encodeURIComponent(activeCategory)}`);
+        const data = await res.json();
+        const slimMeals = data.meals || [];
 
-          // Fetch full details for each slim meal to get ingredients
-          const fullMeals = await Promise.all(
-            slimMeals.map(async (slimMeal) => {
-              const detailRes = await fetch(`${BASE}/lookup.php?i=${slimMeal.idMeal}`);
-              const detailData = await detailRes.json();
-              return mapFullMeal(detailData.meals[0]);
-            })
-          );
-          setMeals(fullMeals);
-        }
+        // Fetch full details for each slim meal to get ingredients
+        const fullMeals = await Promise.all(
+          slimMeals.map(async (slimMeal) => {
+            const detailRes = await fetch(`${BASE}/lookup.php?i=${slimMeal.idMeal}`);
+            const detailData = await detailRes.json();
+            return mapFullMeal(detailData.meals[0]);
+          })
+        );
+        setMeals(fullMeals);
       } catch (e) {
         console.error("Failed to load meals:", e);
         setMeals([]);
@@ -124,8 +127,8 @@ export default function Home({ searchQuery = "" }) {
         setMealsLoading(false);
       }
     };
-    if (q || activeCategory) load();
-  }, [searchQuery, activeCategory]);
+    if (activeCategory) load();
+  }, [activeCategory]);
 
   const isSearching = searchQuery.trim().length > 0;
 

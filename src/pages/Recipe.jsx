@@ -54,9 +54,8 @@ function Recipe({ searchQuery }) {
 
       setLoading(true);
       try {
-        // Use only the first letter of the search query
-        const firstLetter = searchQuery.trim()[0];
-        const searchUrl = `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`;
+        const query = searchQuery.trim();
+        const searchUrl = `https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(query)}`;
 
         const response = await fetch(searchUrl);
         const data = await response.json();

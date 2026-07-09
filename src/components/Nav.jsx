@@ -1,8 +1,7 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { LuChefHat } from "react-icons/lu";
-
 
 const LINKS = [
   { to: "/", label: "Home" },
@@ -11,6 +10,17 @@ const LINKS = [
 ];
 
 function Nav({ isVisible = true, searchQuery = "", setSearchQuery = () => {} }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Redirect to /recipe the moment there's a search query — from ANY page.
+  useEffect(() => {
+    const q = searchQuery.trim();
+    if (q && location.pathname !== "/recipe") {
+      navigate("/recipe");
+    }
+  }, [searchQuery, location.pathname, navigate]);
+
   return (
     <nav
       className={`fixed top-10 left-1/2 -translate-x-1/2 w-[calc(100%-5rem)] z-50 flex items-center justify-between px-8 py-4 rounded-2xl

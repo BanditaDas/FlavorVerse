@@ -1,10 +1,8 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState, useCallback, useRef } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { FaRandom, FaRegClock, FaArrowRight } from "react-icons/fa";
 import { SlFire } from "react-icons/sl";
 import Recipecard from "../components/Recipecard";
-
-
 
 const BASE = "https://www.themealdb.com/api/json/v1/1";
 
@@ -33,8 +31,7 @@ function mapSlimMeal(meal) {
     id: meal.idMeal,
     name: meal.strMeal,
     imageUrl: meal.strMealThumb,
-    category: meal.strCategory, // This will be undefined, but we'll add it later for category browsing
-    ingredients: [], // filter.php doesn't return ingredients — see notes above
+    ingredients: [],
     calories: Math.floor(Math.random() * 300) + 200,
     time: Math.floor(Math.random() * 20) + 10,
   };
@@ -54,19 +51,12 @@ export default function Home({ searchQuery = "" }) {
   const [mealsLoading, setMealsLoading] = useState(true);
   const [displayedCount, setDisplayedCount] = useState(PAGE_SIZE);
 
-  useEffect(() => {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&display=swap";
-    document.head.appendChild(link);
-    return () => document.head.removeChild(link);
-  }, []);
+  const requestIdRef = useRef(0);
 
   useEffect(() => {
     const q = searchQuery.trim();
     if (q) {
-      navigate(`/recipe?q=${encodeURIComponent(q)}`);
+      navigate(`/recipe`);
     }
   }, [searchQuery, navigate]);
 
@@ -102,13 +92,17 @@ export default function Home({ searchQuery = "" }) {
   }, []);
 
   useEffect(() => {
+    if (!activeCategory) return;
+
+    const thisRequestId = ++requestIdRef.current;
+
     const load = async () => {
       setMealsLoading(true);
       setDisplayedCount(PAGE_SIZE);
       try {
-        if (!activeCategory) return;
         const res = await fetch(`${BASE}/filter.php?c=${encodeURIComponent(activeCategory)}`);
         const data = await res.json();
+
         const slimMeals = data.meals || [];
 
         // Fetch full details for each slim meal to get ingredients
@@ -119,15 +113,19 @@ export default function Home({ searchQuery = "" }) {
             return mapFullMeal(detailData.meals[0]);
           })
         );
+
+        if (thisRequestId !== requestIdRef.current) return;
+
         setMeals(fullMeals);
       } catch (e) {
         console.error("Failed to load meals:", e);
-        setMeals([]);
+        if (thisRequestId === requestIdRef.current) setMeals([]);
       } finally {
-        setMealsLoading(false);
+        if (thisRequestId === requestIdRef.current) setMealsLoading(false);
       }
     };
-    if (activeCategory) load();
+
+    load();
   }, [activeCategory]);
 
   const isSearching = searchQuery.trim().length > 0;
@@ -140,7 +138,6 @@ export default function Home({ searchQuery = "" }) {
           <div className="rounded-3xl bg-[#E7DCC2] animate-pulse h-95" />
         ) : (
           <div className="rounded-3xl bg-white/50 border border-[#22291F]/10 shadow-[0_20px_50px_-24px_rgba(34,41,31,0.35)] overflow-hidden grid grid-cols-1 md:grid-cols-2">
-            {/* Text side */}
             <div className="p-8 md:p-12 flex flex-col justify-center">
               <p className="font-['IBM_Plex_Mono'] text-[11px] tracking-[0.25em] uppercase text-[#7C8B6F] mb-3">
                 Today's Pick — {hero.category}{hero.area ? ` / ${hero.area}` : ""}
@@ -164,13 +161,13 @@ export default function Home({ searchQuery = "" }) {
               </div>
 
               <div className="flex items-center gap-4">
-                <a
-                  href={`/recipe/${hero.id}`}
+                <Link
+                  to={`/recipe/${hero.id}`}
                   className="group inline-flex items-center gap-2 bg-[#22291F] text-[#F3ECDD] rounded-full px-5 py-3 font-['IBM_Plex_Mono'] text-xs uppercase tracking-wider transition-transform duration-200 hover:-translate-y-0.5"
                 >
                   Cook this today
                   <FaArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </a>
+                </Link>
                 <button
                   onClick={fetchHero}
                   className="inline-flex items-center gap-2 text-[#22291F]/60 hover:text-[#22291F] font-['IBM_Plex_Mono'] text-xs uppercase tracking-wider transition-colors"
@@ -181,13 +178,8 @@ export default function Home({ searchQuery = "" }) {
               </div>
             </div>
 
-            {/* Image side */}
             <div className="relative h-64 md:h-auto">
-              <img
-                src={hero.imageUrl}
-                alt={hero.name}
-                className="w-full h-full object-cover"
-              />
+              <img src={hero.imageUrl} alt={hero.name} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-linear-to-t md:bg-linear-to-l from-[#22291F]/20 via-transparent to-transparent" />
             </div>
           </div>
@@ -212,11 +204,7 @@ export default function Home({ searchQuery = "" }) {
                         : "bg-white/40 text-[#22291F]/60 border-[#22291F]/10 hover:border-[#7C8B6F]/50 hover:text-[#22291F]"
                     }`}
                 >
-                  <img
-                    src={cat.strCategoryThumb}
-                    alt=""
-                    className="w-5 h-5 rounded-full object-cover"
-                  />
+                  <img src={cat.strCategoryThumb} alt="" className="w-5 h-5 rounded-full object-cover" />
                   {cat.strCategory}
                 </button>
               );
@@ -244,9 +232,7 @@ export default function Home({ searchQuery = "" }) {
           </div>
         ) : meals.length === 0 ? (
           <div className="text-center py-16">
-            <p className="font-['Fraunces'] text-xl text-[#22291F]/70 mb-1">
-              Nothing here yet.
-            </p>
+            <p className="font-['Fraunces'] text-xl text-[#22291F]/70 mb-1">Nothing here yet.</p>
             <p className="text-sm text-[#22291F]/50">
               {isSearching
                 ? `No recipes matched "${searchQuery}". Try another dish or ingredient.`

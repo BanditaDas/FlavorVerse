@@ -215,7 +215,7 @@ export default function RecipeDetails() {
         
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-12 gap-y-10">
         {/* Left column */}
         <div className="md:col-span-2 space-y-12">
           {/* Ingredients */}
@@ -324,7 +324,7 @@ export default function RecipeDetails() {
         </div>
 
         {/* Right column */}
-        <div className="md:col-span-1 rise" style={{ animationDelay: "0.1s" }}>
+        <div className="lg:col-span-1 rise" style={{ animationDelay: "0.1s" }}>
           <div className="relative photo-frame mb-6 hidden md:block">
             <div className="tape" />
             <img

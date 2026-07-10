@@ -92,11 +92,11 @@ function Recipe({ searchQuery }) {
   }
 
   return (
-    <div className="pb-20">
-      <h1 className="text-center font-['Fraunces'] text-5xl font-semibold text-[#22291F] tracking-wide mt-10">
+    <div className="min-h-screen bg-[#F3ECDD] rounded-2xl border border-[#22291F]/10 pt-28 md:pt-36 pb-20 px-4 sm:px-6 md:px-12">
+      <h1 className="text-center font-['Fraunces'] text-4xl md:text-5xl font-semibold text-[#22291F] tracking-wide mb-10">
         Our Recipes
       </h1>
-      <div className="flex flex-wrap justify-center gap-6 mt-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {displayedRecipes.length > 0 ? (
           displayedRecipes.map((recipe) => <Recipecard key={recipe.id} recipe={recipe} />)
         ) : (

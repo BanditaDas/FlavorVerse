@@ -132,7 +132,7 @@ export default function Home({ searchQuery = "" }) {
   const isSearching = searchQuery.trim().length > 0;
 
   return (
-    <div className="min-h-screen bg-[#F3ECDD] rounded-2xl border border-[#22291F]/10 pt-36 pb-20 px-6 md:px-12">
+    <div className="min-h-screen bg-[#F3ECDD] rounded-2xl border border-[#22291F]/10 pt-28 md:pt-36 pb-20 px-4 sm:px-6 md:px-12">
       {/* ── Hero: Today's Pick ─────────────────────────────────────── */}
       <section className="max-w-6xl mx-auto mb-16">
         {heroLoading || !hero ? (
@@ -189,7 +189,7 @@ export default function Home({ searchQuery = "" }) {
 
       {/* ── Category chips ─────────────────────────────────────────── */}
       {!isSearching && (
-        <section className="max-w-6xl mx-auto mb-10 px-6 md:mx-auto md:px-0">
+        <section className="max-w-6xl mx-auto mb-10">
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((cat) => {
               const active = activeCategory === cat.strCategory;

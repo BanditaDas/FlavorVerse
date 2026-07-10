@@ -118,7 +118,7 @@ export default function About() {
           <h2 className="font-['Fraunces'] text-2xl font-semibold text-[#22291F] mb-5">
             Who built this
           </h2>
-          <div className="bg-white/50 border border-[#22291F]/10 rounded-2xl p-7 flex flex-col sm:flex-row sm:items-center gap-5">
+          <div className="bg-white/50 border border-[#22291F]/10 rounded-2xl p-7 flex flex-col md:flex-row md:items-center gap-5">
             <div className="w-14 h-14 rounded-full bg-[#E1573C]/15 flex items-center justify-center font-['Fraunces'] text-xl font-semibold text-[#22291F] shrink-0">
               <img src={me} alt="BD" className="w-full h-full object-cover rounded-full" />
             </div>

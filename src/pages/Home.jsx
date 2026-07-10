@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { FaRandom, FaRegClock, FaArrowRight } from "react-icons/fa";
 import { SlFire } from "react-icons/sl";
 import Recipecard from "../components/Recipecard";
+import Loader from "../components/Loader";
 
 const BASE = "https://www.themealdb.com/api/json/v1/1";
 
@@ -135,7 +136,7 @@ export default function Home({ searchQuery = "" }) {
       {/* ── Hero: Today's Pick ─────────────────────────────────────── */}
       <section className="max-w-6xl mx-auto mb-16">
         {heroLoading || !hero ? (
-          <div className="rounded-3xl bg-[#E7DCC2] animate-pulse h-95" />
+          <div className="rounded-3xl bg-[#E7DCC2] h-95 flex items-center justify-center"><Loader message="Picking today's recipe..." /></div>
         ) : (
           <div className="rounded-3xl bg-white/50 border border-[#22291F]/10 shadow-[0_20px_50px_-24px_rgba(34,41,31,0.35)] overflow-hidden grid grid-cols-1 md:grid-cols-2">
             <div className="p-8 md:p-12 flex flex-col justify-center">
@@ -225,11 +226,7 @@ export default function Home({ searchQuery = "" }) {
         </div>
 
         {mealsLoading ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="w-full h-96 rounded-3xl bg-[#E7DCC2] animate-pulse" />
-            ))}
-          </div>
+          <Loader message="Fetching recipes..." />
         ) : meals.length === 0 ? (
           <div className="text-center py-16">
             <p className="font-['Fraunces'] text-xl text-[#22291F]/70 mb-1">Nothing here yet.</p>

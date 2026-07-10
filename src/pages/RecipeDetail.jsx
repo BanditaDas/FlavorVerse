@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaRegClock, FaChevronLeft, FaChevronRight, FaCheck, FaBookOpen, FaListUl } from "react-icons/fa";
 import { SlFire } from "react-icons/sl";
+import Loader from "../components/Loader";
 
 
 export default function RecipeDetails() {
@@ -78,14 +79,7 @@ export default function RecipeDetails() {
   };
 
   if (loading) {
-    return (
-      <div className="journal-root min-h-100 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3 text-[#7C8B6F]">
-          <FaBookOpen className="w-7 h-7 animate-pulse" />
-          <p className="font-mono text-xs tracking-[0.2em] uppercase">Turning the page…</p>
-        </div>
-      </div>
-    );
+    return <Loader message="Turning the page..." />;
   }
 
   if (!recipe) {

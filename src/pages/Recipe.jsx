@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Recipecard from "../components/Recipecard";
 import { toast } from "react-toastify";
+import Loader from "../components/Loader";
 import { useSearchParams } from "react-router-dom";
 
 function Recipe({ searchQuery }) {
@@ -87,7 +88,7 @@ function Recipe({ searchQuery }) {
   }, [searchQuery, allRecipes, searchParams]);
 
   if (loading) {
-    return <div className="p-6 text-center text-orange-800 text-xl font-semibold mt-10">Loading recipes...</div>;
+    return <Loader message="Finding your recipes..." />;
   }
 
   return (

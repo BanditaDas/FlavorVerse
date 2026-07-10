@@ -1,16 +1,70 @@
-# React + Vite
+# 🍲 FlavorVerse
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A recipe discovery app for browsing, searching, and cooking along — built as a portfolio project to practice working with real API data, client-side routing, and interaction design from scratch.
 
-Currently, two official plugins are available:
+**Live site:** [flavor-verse-nine.vercel.app](https://flavor-verse-nine.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## What it does
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Browse by category** — scroll through cuisines (Italian, Dessert, Vegan, and more) without knowing exactly what you want yet
+- **Search by name** — look up a specific dish and get full ingredients and instructions
+- **Today's Pick** — a random recipe spotlight on the homepage, with a shuffle button for a fresh pick
+- **Cook Mode** — a step-by-step walkthrough on the recipe page, so you're not scrolling mid-stir
+- **Recipe details** — ingredients, estimated time and calories, and full instructions per dish
 
-## Expanding the ESLint configuration
+## Built with
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React** — component structure and state
+- **React Router** — client-side navigation
+- **Tailwind CSS** — styling
+- **[TheMealDB API](https://www.themealdb.com/)** — recipe data
+- **Vite** — build tooling
+- **Vercel** — deployment
+
+## Design
+
+FlavorVerse uses a "kitchen journal" visual theme — warm parchment tones, a serif display font (Fraunces) paired with a monospace accent (IBM Plex Mono), and small tactile details like a tilted photo frame and a taped-corner accent, meant to feel like flipping through a handwritten recipe notebook rather than a generic food app template.
+
+## A note on the data
+
+FlavorVerse is powered by the free version of **TheMealDB API**. Since the API is intended for development use and has practical rate limits, requests may occasionally take a little longer depending on server load. All recipes, categories, and recipe details are fetched live from the API.
+
+## Running it locally
+
+```bash
+git clone https://github.com/BanditaDas/FlavorVerse.git
+cd FlavorVerse
+npm install
+```
+
+Then start the dev server:
+
+```bash
+npm run dev
+```
+
+## Project structure
+
+```text
+src/
+├── Routes/         # Application routing
+├── components/     # Reusable UI components
+├── pages/          # Route-level pages
+├── App.jsx         # Root application component
+├── main.jsx        # React entry point
+└── index.css       # Global styles
+
+public/             # Static assets
+```
+
+---
+
+Built by Bandita 💗
+
+## Connect
+
+- 🌐 Portfolio: https://portfolio-six-theta-37.vercel.app/
+- 💼 LinkedIn: https://www.linkedin.com/in/banditadas-dev/
+- 🐙 GitHub: https://github.com/BanditaDas

@@ -2,7 +2,7 @@
 
 A recipe discovery app for browsing, searching, and cooking along — built as a portfolio project to practice working with real API data, client-side routing, and interaction design from scratch.
 
-**Live site:** [flavor-verse-nine.vercel.app](https://flavor-verse-nine.vercel.app/)
+**Live site:** [click Me](https://flavor-verse-nine.vercel.app/)
 
 ---
 
@@ -19,6 +19,7 @@ A recipe discovery app for browsing, searching, and cooking along — built as a
 - **React** — component structure and state
 - **React Router** — client-side navigation
 - **Tailwind CSS** — styling
+- **React Hot Toast** — notifications
 - **[TheMealDB API](https://www.themealdb.com/)** — recipe data
 - **Vite** — build tooling
 - **Vercel** — deployment

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Recipecard from "../components/Recipecard";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import Loader from "../components/Loader";
 import { useSearchParams } from "react-router-dom";
 

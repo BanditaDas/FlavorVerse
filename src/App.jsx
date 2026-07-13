@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Mainroutes from './Routes/Mainroutes'
 import { useLocation } from 'react-router-dom';
 import Nav from "./components/Nav";
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const [isNavVisible, setIsNavVisible] = useState(true);
@@ -34,6 +35,7 @@ function App() {
     <div id="scroll-container" className="h-screen w-full py-10 px-10 pt-35 text-gray-800 font-semibold bg-orange-50 overflow-y-auto overflow-x-hidden no-scrollbar">
       <Nav isVisible={isNavVisible} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <Mainroutes searchQuery={searchQuery} />
+      <Toaster />
     </div>
   )
 }

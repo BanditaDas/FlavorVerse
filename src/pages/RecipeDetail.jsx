@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import toast from 'react-hot-toast';
 import { FaRegClock, FaChevronLeft, FaChevronRight, FaCheck, FaBookOpen, FaListUl } from "react-icons/fa";
 import { SlFire } from "react-icons/sl";
 import Loader from "../components/Loader";

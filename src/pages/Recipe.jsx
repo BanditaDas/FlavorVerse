@@ -15,6 +15,7 @@ function Recipe({ searchQuery }) {
     id: meal.idMeal,
     name: meal.strMeal,
     imageUrl: meal.strMealThumb,
+    category: meal.strCategory,
     description: meal.strInstructions ? meal.strInstructions.substring(0, 100) + "..." : "",
     ingredients: [meal.strIngredient1, meal.strIngredient2].filter(Boolean),
     price: Math.floor(Math.random() * 10) + 8,

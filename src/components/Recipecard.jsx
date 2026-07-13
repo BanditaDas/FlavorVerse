@@ -34,17 +34,11 @@ function Recipecard({ recipe }) {
       </div>
 
       {/* Tags */}
-      <div className="grid grid-cols-4 gap-2 mt-5">
+      <div className="grid grid-cols-3 gap-2 mt-5">
         <div className="flex flex-col items-center bg-[#ECE2CD] rounded-xl p-2">
           <TbLeaf className="text-[#7C8B6E]" />
-          <span className="text-[11px] mt-1">{truncateText(recipe.ingredients?.[0], 5)}</span>
+          <span className="text-[11px] mt-1">{truncateText(recipe.category, 10)}</span>
         </div>
-
-        <div className="flex flex-col items-center bg-[#ECE2CD] rounded-xl p-2">
-          <LuUtensils className="text-[#7C8B6E]" />
-          <span className="text-[11px] mt-1">{truncateText(recipe.ingredients?.[1], 5)}</span>
-        </div>
-
         <div className="flex flex-col items-center bg-[#ECE2CD] rounded-xl p-2">
           <SlFire className="text-[#7C8B6E]" />
           <span className="text-[11px] mt-1">

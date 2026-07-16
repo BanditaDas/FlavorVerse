@@ -30,7 +30,7 @@ const STACK = ["React", "Tailwind CSS", "React Router", "TheMealDB API"];
 export default function About() {
 
   return (
-    <div className="min-h-screen bg-[#F3ECDD] rounded-2xl border border-[#22291F]/10 pt-36 pb-20 px-6 md:px-12">
+    <div className="min-h-screen bg-[#F3ECDD] rounded-2xl border border-[#22291F]/10 pt-20 pb-20 px-6 md:px-12">
       <div className="max-w-4xl mx-auto">
         {/* ── Mission ───────────────────────────────────── */}
         <section className="mb-16">

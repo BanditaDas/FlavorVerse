@@ -93,7 +93,7 @@ function Recipe({ searchQuery }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#F3ECDD] rounded-2xl border border-[#22291F]/10 pt-28 md:pt-36 pb-20 px-4 sm:px-6 md:px-12">
+    <div className="min-h-screen bg-[#F3ECDD] rounded-2xl border border-[#22291F]/10 pt-10 md:pt-20 pb-20 px-4 sm:px-6 md:px-12">
       <h1 className="text-center font-['Fraunces'] text-4xl md:text-5xl font-semibold text-[#22291F] tracking-wide mb-10">
         Our Recipes
       </h1>

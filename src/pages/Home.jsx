@@ -132,7 +132,7 @@ export default function Home({ searchQuery = "" }) {
   const isSearching = searchQuery.trim().length > 0;
 
   return (
-    <div className="min-h-screen bg-[#F3ECDD] rounded-2xl border border-[#22291F]/10 pt-28 md:pt-36 pb-20 px-4 sm:px-6 md:px-12">
+    <div className="min-h-screen bg-[#F3ECDD] rounded-2xl border border-[#22291F]/10 pt-10 md:pt-20 pb-20 px-4 sm:px-6 md:px-12">
       {/* ── Hero: Today's Pick ─────────────────────────────────────── */}
       <section className="max-w-6xl mx-auto mb-16">
         {heroLoading || !hero ? (
